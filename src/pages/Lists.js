@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import ListsContext from '../context/ListsContext';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
@@ -28,9 +28,15 @@ const Title = styled.h3`
   flex-basis: 80%;
 `;
 
+
 const Lists = () => {
 	let navigate = useNavigate();
-	const {loading, error, lists} = useContext(ListsContext);
+	const {loading, error, lists, fetchLists} = useContext(ListsContext);
+
+
+	useEffect(() => {
+		!lists.length && fetchLists();
+	}, [lists, fetchLists]);
 
 	return (
 		<>
