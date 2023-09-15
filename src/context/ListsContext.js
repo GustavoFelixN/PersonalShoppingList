@@ -62,10 +62,10 @@ export const ListContextProvider = ({children}) => {
 
 	const fetchList = useCallback(async (listId) => {
 		try {
-			const data = await fetch(`https://my-json-server.typicode.com/GustavoFelixN/PersonalShoppingList/list/${listId}`);
-			const result = data.json()
+			const data = await fetch(`https://my-json-server.typicode.com/GustavoFelixN/PersonalShoppingList/lists/${listId}`);
+			const result = await data.json()
 			if (result) {
-				dispatch({ype: 'GET_LIST_SUCCESS', payload: result})
+				dispatch({type: 'GET_LIST_SUCCESS', payload: result})
 			}
 		} catch(e) {
 			dispatch({type: 'GET_LIST_ERROR', payload: e.message})
