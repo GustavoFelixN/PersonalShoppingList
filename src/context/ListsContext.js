@@ -5,6 +5,7 @@ export const ListContext = createContext();
 
 const initialState = {
 	lists: [],
+	list: {},
 	loading: false,
 	error: '',
 };
@@ -21,6 +22,19 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				lists: [],
+				loading: false,
+				error: action.payload,
+			}
+		case 'GET_LIST_SUCCESS':
+			return {
+				...state,
+				list: action.payload,
+				loading: false,
+			}
+		case 'GET_LIST_ERROR':
+			return {
+				...state,
+				list: {},
 				loading: false,
 				error: action.payload,
 			}
@@ -46,8 +60,20 @@ export const ListContextProvider = ({children}) => {
 		}
 	}, []);
 
+	const fetchList = useCallback(async (listId) => {
+		try {
+			const data = await fetch(`https://my-json-server.typicode.com/GustavoFelixN/PersonalShoppingList/list/${listId}`);
+			const result = data.json()
+			if (result) {
+				dispatch({ype: 'GET_LIST_SUCCESS', payload: result})
+			}
+		} catch(e) {
+			dispatch({type: 'GET_LIST_ERROR', payload: e.message})
+		}	
+	}, []);
+
 	return (
-		<ListContext.Provider value={{...state, fetchLists}}>
+		<ListContext.Provider value={{...state, fetchLists, fetchList}}>
 			{children}
 		</ListContext.Provider>
 	);
