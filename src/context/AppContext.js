@@ -1,13 +1,13 @@
-import { ListsContextProvider } from './ListsContext';
+import { ListContextProvider } from './ListsContext';
 import { ItemsContextProvider } from './ItemsContext';
 
 const AppContext = ({children}) => {
 	return (
-		<ListsContextProvider>
+		<ListContextProvider>
 			<ItemsContextProvider>
 				{children}
 			</ItemsContextProvider>
-		</ListsContextProvider>
+		</ListContextProvider>
 	);
 };
 
