@@ -5,8 +5,7 @@ import Header from './components/Header/Header';
 import Lists from './pages/Lists';
 import ListDetail from './pages/ListDetail';
 import ListForm from './pages/ListForm';
-import { ListContextProvider } from './context/ListsContext';
-import { ItemsContextProvider } from './context/ItemsContext';
+import AppContext from './context/AppContext';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -30,16 +29,14 @@ function App() {
 			<GlobalStyle />
 			<AppWrapper>
 				<BrowserRouter>
-					<ListContextProvider>
-						<ItemsContextProvider>
-							<Header />
-							<Routes>
-								<Route path='/' element={<Lists />} />
-								<Route path='/list/:listId/new' element={<ListForm />} />
-								<Route path='/list/:listId' element={<ListDetail />} />
-							</Routes>
-						</ItemsContextProvider>
-					</ListContextProvider>
+					<AppContext>
+						<Header />
+						<Routes>
+							<Route path='/' element={<Lists />} />
+							<Route path='/list/:listId/new' element={<ListForm />} />
+							<Route path='/list/:listId' element={<ListDetail />} />
+						</Routes>
+					</AppContext>
 				</BrowserRouter>
 			</AppWrapper>
 		</>
