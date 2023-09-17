@@ -32,7 +32,7 @@ function ListDetail() {
 		<>
 			{navigate && (
 				<NavBar
-					goBack={() => navigate(-1)}
+					goBack={() => navigate('/')}
 					openForm={() => navigate(`/list/${listId}/new`)}
 					title={list && list.title}
 				/>
