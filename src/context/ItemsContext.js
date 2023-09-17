@@ -3,7 +3,7 @@ import { createContext, useCallback, useReducer } from 'react';
 export const ItemsContext = createContext();
 
 const initialState = {
-	items: [],
+	items: {},
 	loading: false,
 	error: '',
 };
@@ -13,20 +13,21 @@ const reducer = (state, action) => {
 		case 'GET_ITEMS_SUCCESS':
 			return {
 				...state,
-				items: action.payload,
+				items: { ...state.items,  ...action.payload },
 				loading: false,
 			};
 		case 'GET_ITEMS_ERROR':
 			return {
 				...state,
-				items: [],
+				items: {},
 				loading: false,
 				error: action.payload,
 			};
 		case 'ADD_ITEM_SUCCESS':
+			const { listId } = action.payload;
 			return {
 				...state,
-				items: [...state.items, action.payload],
+				items: {   ...state.items,  [listId]: [...state.items[listId], action.payload ]   },
 				loading: false,
 			}
 		default:
