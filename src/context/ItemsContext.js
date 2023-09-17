@@ -42,7 +42,7 @@ export const ItemsContextProvider = ({children}) => {
 			const results = await data.json();
 			if (results) {
 
-				dispatch({type: 'GET_ITEMS_SUCCESS', payload: results});
+				dispatch({type: 'GET_ITEMS_SUCCESS', payload: { [listId]: results }});
 			}
 		} catch(e) {
 			dispatch({type: 'GET_ITEMS_ERROR', payload: e.message});

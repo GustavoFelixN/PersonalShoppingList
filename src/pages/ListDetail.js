@@ -21,7 +21,7 @@ function ListDetail() {
 	const { list, fetchList } = useContext(ListsContext);
 
 	useEffect(() => {
-		listId && !items.length && fetchItems(listId);
+		listId && !items[listId] && fetchItems(listId);
 	}, [listId, items, fetchItems]);
 
 	useEffect(() => {
@@ -38,10 +38,10 @@ function ListDetail() {
 				/>
 			)}
 			<ListItemWrapper>
-				{loading || error ? (
+				{loading || error || !items[listId] ? (
 					<span>{error || 'Loading...'}</span>
 				) : (
-					items.map((item) => <ListItem key={item.id} data={item} />)
+					items[listId].map((item) => <ListItem key={item.id} data={item} />)
 				)}
 			</ListItemWrapper>
 		</>
